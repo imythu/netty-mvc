@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author myth
+ */
 public class HttpMythHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
     private static final List<String> staticResources = new ArrayList<>();
@@ -41,9 +44,14 @@ public class HttpMythHandler extends SimpleChannelInboundHandler<FullHttpRequest
             int index = staticResources.indexOf(url.substring(position));
             if (index >= 0 || url.endsWith("/")) {
                 System.out.println("请求静态资源");
-                if (url.endsWith("/") && url.length() == 1) url = "/index.html";
-                if (url.endsWith("/") && url.length() != 1) url = url + "/index.html";
-                if (staticResourcesResponse == null) {
+                if (url.endsWith("/") && url.length() == 1) {
+                    url = "/index.html";
+                }
+                if (url.endsWith("/") && url.length() != 1) {
+                    url = url + "/index.html";
+                }
+                if (staticResourcesResponse != null) {
+                } else {
                     staticResourcesResponse = new HttpStaticResourcesResponse();
                 }
                 staticResourcesResponse.writeAndFlush(ctx, rootUrl + url);

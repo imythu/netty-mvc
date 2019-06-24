@@ -7,6 +7,9 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 
+/**
+ * @author myth
+ */
 public class HttpMythResponse {
 
     private ChannelHandlerContext ctx;

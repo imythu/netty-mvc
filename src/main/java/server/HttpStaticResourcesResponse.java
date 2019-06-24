@@ -15,6 +15,9 @@ import java.util.UUID;
 
 import static java.lang.Character.LINE_SEPARATOR;
 
+/**
+ * @author myth
+ */
 public class HttpStaticResourcesResponse {
     private String url;
 

@@ -3,6 +3,9 @@ package server;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author myth
+ */
 public class Repository {
     private static Map<String, HttpMythSession> sessionMap = new HashMap<>();
     private static String fileRoot;

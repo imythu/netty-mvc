@@ -10,6 +10,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author myth
+ */
 public class HttpRequestParameter {
 
     private Map<String, String> parametersMap;

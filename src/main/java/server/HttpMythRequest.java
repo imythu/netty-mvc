@@ -6,6 +6,9 @@ import io.netty.handler.codec.http.HttpHeaderNames;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * @author myth
+ */
 public class HttpMythRequest {
     private HttpMythSession session;
     private FullHttpRequest request;

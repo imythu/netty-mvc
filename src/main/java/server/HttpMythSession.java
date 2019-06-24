@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * @author myth
+ */
 public class HttpMythSession{
 
     private String sessionId;

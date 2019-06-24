@@ -1,7 +1,11 @@
 package server;
 
+/**
+ * @author myth
+ */
 public class Properties {
-    private static long expire = 1200000;//毫秒
+    //毫秒
+    private static long expire = 1200000;
 
     public static long getExpire() {
         return expire;

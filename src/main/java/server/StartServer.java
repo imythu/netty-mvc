@@ -4,6 +4,9 @@ import server.HttpMythDispatcher;
 import server.MythServer;
 import server.Repository;
 
+/**
+ * @author myth
+ */
 public class StartServer {
 
 
