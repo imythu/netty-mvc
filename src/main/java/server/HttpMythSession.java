@@ -10,7 +10,8 @@ public class HttpMythSession{
 
     private String sessionId;
     private Map<String, Object> attributeMap;
-    private long expire = 1200000;//毫秒
+    //毫秒
+    private long expire = 1200000;
     private Date createTime;
 
     public HttpMythSession(String cookie) {

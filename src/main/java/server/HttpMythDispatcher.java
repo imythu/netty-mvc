@@ -26,12 +26,16 @@ public class HttpMythDispatcher {
         System.out.println("开始扫描");
         doScanner("mvc");
         System.out.println("扫描Controller完毕");
-        for (String name : classNames) System.out.println("扫描到类名: "+name);
+        for (String name : classNames) {
+            System.out.println("扫描到类名: "+name);
+        }
 
 
         System.out.println("创建实例");
         doInstance();
-        for (String key:ioc.keySet()) System.out.println("创建实例："+key+"--"+ioc.get(key));
+        for (String key:ioc.keySet()) {
+            System.out.println("创建实例："+key+"--"+ioc.get(key));
+        }
         System.out.println("实例创建完毕");
 
 
@@ -53,7 +57,9 @@ public class HttpMythDispatcher {
         url = url.substring(6);
         File dir = new File(url);
         File[] files = dir.listFiles();
-        if (files == null) return;
+        if (files == null) {
+            return;
+        }
         System.out.println("扫描长度: "+files.length);
         for (File file : files) {
             if (file.isDirectory()) {
@@ -81,7 +87,9 @@ public class HttpMythDispatcher {
     }
 
     private static void doInstance() throws Exception {
-        if (classNames.size() == 0) return;
+        if (classNames.size() == 0) {
+            return;
+        }
         try {
             for (String className : classNames) {
                 Class<?> clazz = Class.forName(className);
@@ -110,14 +118,20 @@ public class HttpMythDispatcher {
     }
 
     private static void doAutowired() throws Exception {
-        if (ioc.size() == 0) return;
+        if (ioc.size() == 0) {
+            return;
+        }
         for (Map.Entry<String, Object> entry : ioc.entrySet()) {
             Field[] fields = entry.getValue().getClass().getDeclaredFields();
             for (Field field : fields) {
-                if (!field.isAnnotationPresent(MythAutowired.class)) continue;
+                if (!field.isAnnotationPresent(MythAutowired.class)) {
+                    continue;
+                }
                 MythAutowired autowired = field.getAnnotation(MythAutowired.class);
                 String beanName = autowired.value().trim();
-                if (beanName.equals("")) beanName = lowerFirstCase(field.getType().getInterfaces()[0].getSimpleName());
+                if (beanName.equals("")) {
+                    beanName = lowerFirstCase(field.getType().getInterfaces()[0].getSimpleName());
+                }
                 field.setAccessible(true);
 
                 try {
@@ -133,12 +147,16 @@ public class HttpMythDispatcher {
     }
 
     private static void initHandlerMapping() throws Exception {
-        if (ioc.size() == 0) return;
+        if (ioc.size() == 0) {
+            return;
+        }
         for (Map.Entry<String, Object> entry : ioc.entrySet()) {
             String baseurl;
             Class<?> clazz = entry.getValue().getClass();
             if (!clazz.isAnnotationPresent(MythController.class)
-                    && !clazz.isAnnotationPresent(MythRestController.class)) continue;
+                    && !clazz.isAnnotationPresent(MythRestController.class)) {
+                continue;
+            }
             baseurl = "";
             if (clazz.isAnnotationPresent(MythRequestMapping.class)) {
                 MythRequestMapping requestMapping = clazz.getAnnotation(MythRequestMapping.class);
@@ -147,7 +165,9 @@ public class HttpMythDispatcher {
             System.out.print(clazz.getSimpleName()+ ":  ");
             Method[] methods = clazz.getMethods();
             for (Method method : methods) {
-                if (!method.isAnnotationPresent(MythRequestMapping.class)) continue;
+                if (!method.isAnnotationPresent(MythRequestMapping.class)) {
+                    continue;
+                }
                 MythRequestMapping requestMapping = method.getAnnotation(MythRequestMapping.class);
                 String url = ("/" + baseurl + "/" + requestMapping.value()).replaceAll("/+", "/");
                 handlerMapping.put(url, method);
