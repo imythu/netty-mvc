@@ -1,5 +1,8 @@
 package mvc.service;
 
+/**
+ * @author myth
+ */
 public interface TestService {
     /**
      * 返回名字

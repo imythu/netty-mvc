@@ -79,10 +79,6 @@ public class HttpMythDispatcher {
         }
     }
 
-//    private void doConfig(String location) {
-//        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(location);
-//
-//    }
     private static String lowerFirstCase(String str) throws Exception {
         char[] chars = str.toCharArray();
         chars[0] += 32;
@@ -132,7 +128,7 @@ public class HttpMythDispatcher {
                 }
                 MythAutowired autowired = field.getAnnotation(MythAutowired.class);
                 String beanName = autowired.value().trim();
-                if (beanName.equals("")) {
+                if ("".equals(beanName)) {
                     beanName = lowerFirstCase(field.getType().getInterfaces()[0].getSimpleName());
                 }
                 field.setAccessible(true);
@@ -140,7 +136,6 @@ public class HttpMythDispatcher {
                 try {
                     field.set(entry.getValue(), ioc.get(beanName));
                     System.out.println("注入的beanName："+ beanName);
-//                    System.out.println(entry.getValue().toString() + ioc.get(beanName));
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                     continue;
@@ -189,7 +184,6 @@ public class HttpMythDispatcher {
             return -1;
         }
         try {
-            //Map<String, String> parametersMap = request.getParameterMap();
             Method method = handlerMapping.get(url);
             Class<?>[] parameterTypes = method.getParameterTypes();
             int length = parameterTypes.length;

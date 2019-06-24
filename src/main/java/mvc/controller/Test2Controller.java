@@ -4,6 +4,9 @@ import annotation.MythController;
 import annotation.MythRequestMapping;
 import server.HttpMythResponse;
 
+/**
+ * @author myth
+ */
 @MythController
 public class Test2Controller {
     @MythRequestMapping("/test2.do")

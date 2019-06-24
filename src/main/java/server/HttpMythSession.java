@@ -13,7 +13,9 @@ public class HttpMythSession{
 
     private String sessionId;
     private Map<String, Object> attributeMap;
-    //毫秒
+    /**
+     过期时间
+     */
     private long expire = 1200000;
     private Date createTime;
 
@@ -27,10 +29,6 @@ public class HttpMythSession{
             Repository.addSession(this);
         }
     }
-
-//    private void setSessionId(String id) {
-//        sessionId = id;
-//    }
 
     public String getSessionId() {
         return sessionId;

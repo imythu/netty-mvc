@@ -41,7 +41,9 @@ public class HttpMythRequest {
     public String getUrl() {
         String url = request.uri();
             int end = request.uri().indexOf("?");
-            if (end == -1) return url;
+            if (end == -1) {
+                return url;
+            }
             url = request.uri().substring(0,end);
         return url;
     }

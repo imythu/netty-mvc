@@ -17,13 +17,14 @@ import java.util.UUID;
  */
 public class HttpMythHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
-    private static final List<String> staticResources = new ArrayList<>();
-    private static final List<String> methods = new ArrayList<>();
+    private static final List<String> STATIC_RESOURCES = new ArrayList<>();
+    private static final List<String> METHODS = new ArrayList<>();
+    private static final String URL_SEPARATOR = "/";
     private static String rootUrl;
     private static HttpStaticResourcesResponse staticResourcesResponse;
 
     public HttpMythHandler(String rootUrl) {
-        this.rootUrl = rootUrl;
+        HttpMythHandler.rootUrl = rootUrl;
     }
 
     @Override
@@ -34,20 +35,20 @@ public class HttpMythHandler extends SimpleChannelInboundHandler<FullHttpRequest
         fullHttpRequest.headers().set(HttpHeaderNames.ACCEPT_CHARSET, CharsetUtil.UTF_8)
                 .set(HttpHeaderNames.ACCEPT_ENCODING, CharsetUtil.UTF_8);
         String method = fullHttpRequest.method().name();
-        if (methods.indexOf(method) < 0) {
+        if (METHODS.indexOf(method) < 0) {
             System.out.println("不支持此方法"+method);
             writeStatus(fullHttpRequest, ctx, "405");
             return;
         }
         int position = url.lastIndexOf(".") + 1;
         try {
-            int index = staticResources.indexOf(url.substring(position));
-            if (index >= 0 || url.endsWith("/")) {
+            int index = STATIC_RESOURCES.indexOf(url.substring(position));
+            if (index >= 0 || url.endsWith(URL_SEPARATOR)) {
                 System.out.println("请求静态资源");
-                if (url.endsWith("/") && url.length() == 1) {
+                if (url.endsWith(URL_SEPARATOR) && url.length() == 1) {
                     url = "/index.html";
                 }
-                if (url.endsWith("/") && url.length() != 1) {
+                if (url.endsWith(URL_SEPARATOR) && url.length() != 1) {
                     url = url + "/index.html";
                 }
                 if (staticResourcesResponse != null) {
@@ -74,19 +75,19 @@ public class HttpMythHandler extends SimpleChannelInboundHandler<FullHttpRequest
     }
 
     private void setStaticResources() {
-        staticResources.add("html");
-        staticResources.add("js");
-        staticResources.add("css");
-        staticResources.add("gif");
-        staticResources.add("jpg");
-        staticResources.add("ico");
+        STATIC_RESOURCES.add("html");
+        STATIC_RESOURCES.add("js");
+        STATIC_RESOURCES.add("css");
+        STATIC_RESOURCES.add("gif");
+        STATIC_RESOURCES.add("jpg");
+        STATIC_RESOURCES.add("ico");
     }
 
     private void setMethods() {
-        methods.add("GET");
-        methods.add("GET".toLowerCase());
-        methods.add("POST");
-        methods.add("POST".toLowerCase());
+        METHODS.add("GET");
+        METHODS.add("GET".toLowerCase());
+        METHODS.add("POST");
+        METHODS.add("POST".toLowerCase());
     }
 
     @Override

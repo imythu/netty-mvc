@@ -11,6 +11,9 @@ import server.HttpMythResponse;
 
 import java.util.HashMap;
 
+/**
+ * @author myth
+ */
 @MythRestController
 public class TestController {
     @MythAutowired

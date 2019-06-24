@@ -27,7 +27,6 @@ public class HttpStaticResourcesResponse {
     public void setContentType(FullHttpResponse response) {
         int index = url.lastIndexOf(".");
         String suffix = url.substring(index+1);
-//        System.out.println(suffix);
         String common = "type; charset=utf-8";
         String content = "text/html; charset=utf-8";
         switch (suffix) {
@@ -48,6 +47,8 @@ public class HttpStaticResourcesResponse {
                 break;
             case "ico":
                 content = common.replace("type", "application/x-icon");
+                break;
+            default:
                 break;
         }
         response.headers().set(HttpHeaderNames.CONTENT_TYPE, content);
